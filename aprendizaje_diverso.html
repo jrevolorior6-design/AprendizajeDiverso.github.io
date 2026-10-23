@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Guía educativa e interactiva de Precálculo para estudiantes.">
+<title>Aprendizaje Diverso | Precálculo · UMG Jalapa</title>
+<style>
+/* ============================================================
+   CSS = APARIENCIA DE LA PÁGINA
+   Aquí se definen colores, tamaños, espacios, bordes y diseño.
+   Cambia estas reglas para modificar cómo se ve la página;
+   no cambian las operaciones matemáticas ni el contenido.
+   ============================================================ */
+/* Variables reutilizables: permiten cambiar un color una sola vez
+   y que se actualice en todas las partes que usan ese nombre. */
+:root{--navy:#10233f;--blue:#2563eb;--cyan:#22d3ee;--gold:#fbbf24;--ink:#172033;--muted:#5e6b82;--paper:#f5f8ff;--white:#fff;--line:#e1e8f5;--green:#0f9f6e;--red:#dc2626}
+/* Regla general: hace que el ancho de los elementos incluya
+   también el relleno y el borde, facilitando calcular tamaños. */
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:var(--paper);line-height:1.65}
+/* CABECERA Y NAVEGACIÓN: mantiene el menú arriba mientras se desplaza
+   la página. .nav organiza el logo, los enlaces y el botón móvil. */
+header{position:sticky;top:0;z-index:20;background:rgba(16,35,63,.96);backdrop-filter:blur(12px);color:white;border-bottom:1px solid #ffffff20}
+.nav{max-width:1180px;margin:auto;padding:12px 22px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{font-weight:900;letter-spacing:.2px;display:flex;align-items:center;gap:10px}.brand-mark{width:40px;height:40px;border-radius:13px;background:linear-gradient(135deg,var(--gold),#fb923c);display:grid;place-items:center;color:var(--navy);font-size:23px}.navlinks{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.navlinks a{color:#e6efff;text-decoration:none;font-size:.9rem;font-weight:650}.navlinks a:hover{color:var(--gold)}.menu-btn{display:none;background:#ffffff15;color:white;border:1px solid #ffffff30;border-radius:10px;padding:8px 12px}
+/* PORTADA: el bloque grande de bienvenida, con degradados y mascota. */
+.hero{background:radial-gradient(circle at 82% 22%,#1d4ed8 0,transparent 27%),linear-gradient(130deg,#0b1730,#102c53 58%,#164e78);color:white;overflow:hidden}.hero-inner{max-width:1180px;margin:auto;padding:68px 22px 74px;display:grid;grid-template-columns:1.25fr .75fr;gap:40px;align-items:center}.eyebrow{display:inline-flex;gap:8px;align-items:center;color:#fde68a;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;font-size:.78rem}.hero h1{font-size:clamp(2.5rem,5vw,4.7rem);line-height:1.05;margin:17px 0 20px;letter-spacing:-2px}.hero h1 span{color:var(--cyan)}.hero p{max-width:660px;color:#d9e7ff;font-size:1.1rem}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:27px}.btn{border:0;border-radius:12px;padding:12px 18px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn-primary{background:var(--gold);color:#18243b}.btn-outline{border:1px solid #ffffff70;color:white;background:#ffffff10}.mascot{justify-self:center;width:min(300px,85%);aspect-ratio:1;border-radius:40% 60% 48% 52%;background:linear-gradient(145deg,#fef3c7,#fbbf24);display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(3deg);box-shadow:0 25px 70px #0005;color:var(--navy);position:relative}.mascot .face{font-size:7rem;line-height:1;transform:rotate(-3deg)}.mascot strong{font-size:1.55rem}.mascot small{font-weight:700}.floating{position:absolute;background:white;color:var(--navy);border-radius:15px;padding:10px 14px;box-shadow:0 12px 30px #0002;font-weight:850;transform:rotate(-7deg);top:14%;right:-6%}.floating.two{top:auto;right:auto;bottom:12%;left:-10%;transform:rotate(6deg)}
+/* CONTENIDO PRINCIPAL: limita el ancho para que el texto sea legible. */
+main{max-width:1180px;margin:auto;padding:0 22px}.section{padding:62px 0}.section-head{margin-bottom:26px;max-width:760px}.kicker{color:var(--blue);font-weight:900;text-transform:uppercase;letter-spacing:1.3px;font-size:.76rem}.section h2{font-size:clamp(1.8rem,3vw,2.7rem);line-height:1.15;margin:8px 0 12px;letter-spacing:-.7px}.section-head p{color:var(--muted);margin:0}/* TARJETAS Y TEMAS: las reglas grid organizan tarjetas en columnas. */
+.intro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.info-card,.topic-card,.panel{background:white;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 8px 25px #183b6b08}.info-card .icon{font-size:1.8rem}.info-card h3{margin:8px 0}.info-card p{color:var(--muted);margin:0;font-size:.95rem}.members{background:#eaf1ff;border:1px dashed #9db8ef;border-radius:16px;padding:18px;margin-top:18px}.members strong{display:block;margin-bottom:8px}.member-list{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.member-list span{background:white;border-radius:9px;padding:8px 10px;font-size:.9rem}
+.topic-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.topic-card{padding:0;overflow:hidden}.topic-top{padding:20px 22px;background:linear-gradient(115deg,#edf4ff,#f7faff);border-bottom:1px solid var(--line);display:flex;gap:14px;align-items:flex-start}.topic-number{flex:0 0 45px;height:45px;border-radius:14px;background:var(--navy);color:white;display:grid;place-items:center;font-weight:900;font-size:1.05rem}.topic-top h3{margin:0 0 4px;font-size:1.2rem}.topic-top p{margin:0;color:var(--muted);font-size:.9rem}.topic-body{padding:20px 22px}.topic-body h4{margin:15px 0 5px;color:#1d3b69}.topic-body p{margin:6px 0}.formula{background:#f1f6ff;border-left:4px solid var(--blue);border-radius:8px;padding:11px 14px;font-weight:750;overflow-x:auto}.steps{padding-left:22px;margin:7px 0}.steps li{padding:3px 0}.answer{color:var(--green);font-weight:850}.video-container iframe{display:block;width:100%;max-width:100%;aspect-ratio:16/9;border:0;border-radius:8px;margin-top:14px}
+/* HERRAMIENTAS INTERACTIVAS: paneles de calculadoras y cuestionario. */
+.practice-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.panel h3{margin:0 0 8px}.panel p{color:var(--muted)}label{font-weight:750;display:block;margin:12px 0 5px}input[type="number"],select{width:100%;padding:11px 12px;border:1px solid #cbd5e1;border-radius:10px;font:inherit;background:white}.result{margin-top:13px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:11px;padding:12px;font-weight:800;min-height:48px}.quiz-question{padding:14px 0;border-bottom:1px solid var(--line)}.quiz-question p{margin:0 0 8px;color:var(--ink);font-weight:750}.quiz-question label{font-weight:500;display:flex;gap:8px;align-items:center;margin:7px 0}.quiz-question input{accent-color:var(--blue)}.notice{background:#fff7df;border:1px solid #f6d36d;padding:15px 17px;border-radius:14px;color:#674b0a}.footer{background:var(--navy);color:#e2eaff;margin-top:25px}.footer-inner{max-width:1180px;margin:auto;padding:32px 22px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer p{margin:4px 0;color:#bdcbe6;font-size:.9rem}.backtop{color:#fde68a;text-decoration:none;font-weight:800}
+/* DISEÑO RESPONSIVE: cuando la pantalla es estrecha (móvil), cambia
+   las columnas por una sola y muestra el botón del menú. */
+@media(max-width:780px){.hero-inner{grid-template-columns:1fr;padding-top:50px}.mascot{width:220px}.navlinks{display:none;position:absolute;top:64px;left:0;right:0;background:var(--navy);padding:18px 22px;flex-direction:column;align-items:flex-start}.navlinks.open{display:flex}.menu-btn{display:block}.intro-grid{grid-template-columns:1fr}.topic-grid,.practice-grid{grid-template-columns:1fr}.member-list{grid-template-columns:1fr 1fr}.hero h1{letter-spacing:-1px}}
+/* IMPRESIÓN: oculta controles que no hacen falta en una copia impresa. */
+@media print{header,.actions,.practice-grid,.video-box button{display:none!important}.hero{background:white;color:#111}.hero p{color:#333}.mascot{box-shadow:none}.topic-card,.info-card{break-inside:avoid}}
+
+/* ============================================================
+   AJUSTES VISUALES MINIMALISTAS PARA PRESENTACIÓN UNIVERSITARIA
+   Esta sección modifica la apariencia original sin cambiar el contenido
+   matemático ni las herramientas interactivas.
+   ============================================================ */
+:root{--navy:#17324d;--blue:#245b78;--cyan:#a9d9d5;--gold:#d7b56d;--ink:#24313b;--muted:#667582;--paper:#f7f8fa;--white:#fff;--line:#dfe5e9;--green:#28745b;--red:#b54747}
+body{background:var(--paper);font-family:Arial,Helvetica,sans-serif;line-height:1.7}
+header{background:rgba(23,50,77,.98);backdrop-filter:none}
+.nav{max-width:1120px;padding-top:10px;padding-bottom:10px}
+.brand-mark{background:#e6edf1;color:var(--navy);border-radius:8px;box-shadow:none}
+.navlinks a:hover{color:#c9e7e4}
+.hero{background:var(--navy)}
+.hero-inner{max-width:1120px;padding-top:54px;padding-bottom:54px;gap:32px}
+.hero h1{font-size:clamp(2.3rem,4.3vw,3.8rem);letter-spacing:-1.2px}
+.hero h1 span{color:#c9e7e4}
+.eyebrow{color:#d9e7e9;letter-spacing:1.2px}
+.hero p{color:#e0e8ee;font-size:1.02rem}
+.btn{border-radius:7px;box-shadow:none}
+.btn-primary{background:#e6edf1;color:var(--navy)}
+.btn-primary:hover{background:#c9e7e4}
+.btn-outline{border-color:#aabcc8;color:white;background:transparent}
+.mascot{width:min(250px,82%);border-radius:18px;background:#e8efef;transform:none;box-shadow:none;color:var(--navy);border:1px solid #c8d8da}
+.mascot .face{font-size:5.2rem;transform:none;color:var(--blue);font-weight:700}
+.mascot strong{font-size:1.3rem}
+.floating{border:1px solid #dfe5e9;border-radius:8px;box-shadow:none;transform:none;color:var(--navy)}
+.floating.two{transform:none}
+main{max-width:1120px}
+.section{padding:50px 0}
+.kicker{color:var(--blue);letter-spacing:1.1px}
+.section h2{letter-spacing:-.35px;font-size:clamp(1.7rem,2.7vw,2.35rem)}
+.info-card,.topic-card,.panel{border-radius:12px;box-shadow:none;border-color:#dfe5e9}
+.info-card{padding:20px}
+.info-card .icon{font-size:1.05rem;font-weight:700;color:var(--blue);letter-spacing:.06em}
+.members{background:#f0f4f6;border:1px solid #dfe5e9;border-radius:10px}
+.member-list span{border:1px solid #e5eaee;border-radius:6px}
+.topic-card{border-radius:12px}
+.topic-top{background:#f0f4f6;padding:18px 20px}
+.topic-number{background:var(--navy);border-radius:8px}
+.topic-body{padding:20px}
+.topic-body h4{color:var(--blue)}
+.formula{background:#f1f5f7;border-left-color:#6e9aa8;border-radius:5px;font-weight:650}
+
+.practice-grid{gap:16px}
+.result{background:#f0f6f3;border:1px solid #cbded4;border-radius:8px}
+.notice{background:#f2f5f7;border:1px solid #dfe5e9;border-radius:9px;color:#354b5a}
+.footer{background:#17324d}
+.footer-inner{max-width:1120px}
+.backtop{color:#d9e7e9}
+input[type=number],select{border-radius:7px;border-color:#cbd5dc}
+@media(max-width:780px){.hero-inner{padding-top:42px;padding-bottom:42px}.mascot{width:190px}.floating{right:-3%}.floating.two{left:-3%}.section{padding:38px 0}}
+
+</style>
+</head>
+<body>
+<!-- HTML = ESTRUCTURA Y CONTENIDO. Las etiquetas describen cada parte:
+     header (cabecera), nav (menú), section (sección), main (contenido),
+     article (tema independiente), form (formulario) y footer (pie). -->
+<header><div class="nav">
+<a class="brand" href="#inicio" style="color:white;text-decoration:none"><span class="brand-mark">π</span><span>APRENDIZAJE DIVERSO <small style="display:block;color:#bcd0f5;font-size:.68rem;letter-spacing:1.3px">PRECÁLCULO</small></span></a>
+<button class="menu-btn" id="menuBtn" aria-label="Abrir menú">☰ Menú</button>
+<nav class="navlinks" id="navlinks"><a href="#proyecto">Proyecto</a><a href="#temas">Los 10 temas</a><a href="#practica">Practicar</a></nav>
+</div></header>
+<!-- PORTADA: id="inicio" es el destino del enlace para volver arriba. -->
+<section class="hero" id="inicio"><div class="hero-inner">
+<div><div class="eyebrow">UNIVERSIDAD MARIANO GÁLVEZ · SEDE JALAPA</div><h1>Aprendizaje <span>Diverso</span></h1>
+<p>Bienvenidos a esta guía académica de Precálculo. Aquí encontrarás explicaciones, propiedades, ejercicios desarrollados paso a paso y herramientas interactivas para reforzar los aprendizajes del curso.</p>
+<div class="actions"><a class="btn btn-primary" href="#temas">Explorar los temas</a><a class="btn btn-outline" href="#practica">Ir a la práctica</a></div>
+</div><div class="mascot" aria-label="Símbolo matemático de aprendizaje"><span class="floating">Aprender</span><div class="face">π</div><strong>Aprendizaje Diverso</strong><small>Precálculo · 2026</small><span class="floating two">Comprender · Resolver</span></div>
+</div></section>
+<main>
+<!-- SECCIÓN PROYECTO: presentación, objetivos e integrantes del grupo. -->
+<div class="info-card"><div class="icon">01</div><h3>Comprende</h3><p>Repasa conceptos y propiedades con explicaciones breves y lenguaje sencillo.</p></div>
+<div class="info-card"><div class="icon">02</div><h3>Resuelve</h3><p>Sigue ejemplos desarrollados y observa cada paso antes de comprobar el resultado.</p></div>
+<div class="info-card"><div class="icon">03</div><h3>Practica</h3><p>Usa los ejercicios interactivos para poner a prueba lo aprendido y detectar dudas.</p></div>
+</div>
+<div class="members"><strong>Integrantes del grupo</strong><div class="member-list"><span>1. Omar Eduardo Aguirre Navas</span><span>2. Gerardo Enrique González Cisneros</span><span>3. Johán David Méndez López</span><span>4. Jonatan Alexander Revolorio Reyes</span><span>5. Brandon Uciel Rosales Chinchilla</span></div></div>
+</section>
+<!-- LOS 10 TEMAS: cada article.topic-card contiene un tema de precálculo,
+     su explicación, fórmula, ejemplo resuelto y un apartado de código para añadir un video desde Visual Studio Code. -->
+<section class="section" id="temas"><div class="section-head"><div class="kicker">Contenido del curso</div><h2>Explora los 10 temas de Precálculo</h2><p>Cada tema incluye conceptos, fórmulas o propiedades y un ejemplo resuelto paso a paso.</p></div>
+<div class="topic-grid">
+<article class="topic-card" id="tema1"><div class="topic-top"><span class="topic-number">01</span><div><h3>Exponentes y radicales</h3><p>Propiedades, simplificación y operaciones</p></div></div><div class="topic-body">
+<h4>Conceptos clave</h4><p>Una potencia representa multiplicaciones repetidas. Un radical permite encontrar una raíz. Para bases distintas no se suman exponentes, y las propiedades deben aplicarse respetando sus condiciones.</p>
+<div class="formula">aᵐ · aⁿ = aᵐ⁺ⁿ　 |　 aᵐ / aⁿ = aᵐ⁻ⁿ (a ≠ 0)<br>(aᵐ)ⁿ = aᵐⁿ　 |　 a⁰ = 1 (a ≠ 0)<br>√(ab) = √a · √b, para a,b ≥ 0</div>
+<h4>Ejemplo: simplificar x³ · x⁴ / x²</h4><ol class="steps"><li>Multiplicamos potencias de la misma base: x³ · x⁴ = x⁷.</li><li>Dividimos potencias de la misma base y restamos exponentes: x⁷ / x² = x⁷⁻².</li><li class="answer">Resultado: x⁵, con x ≠ 0 en la expresión original.</li></ol>
+<p><b>Radical:</b> √72 = √(36 · 2) = 6√2.</p><div class="video-container" id="video-container-1">
+   <div class="video-container" id="video-container-1">
+   <div class="video-container">
+    <iframe
+        src="https://drive.google.com/file/d/1o8XRJNlcHejqTDck87v39PDAhXLmpsdY/preview"
+        title="Video educativo"
+        allow="autoplay; fullscreen"
+        allowfullscreen>
+    </iframe>
+</div>
+</div>
+    <style>
+.video-container {
+    width: 100%;
+    max-width: 800px;
+    aspect-ratio: 16 / 9;
+    margin: 25px auto;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-container iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0;
+}
+</style>
+</div>
+</article>
+<article class="topic-card" id="tema2"><div class="topic-top"><span class="topic-number">02</span><div><h3>Expresiones racionales</h3><p>Simplificación, operaciones y restricciones</p></div></div><div class="topic-body">
+<h4>Conceptos clave</h4><p>Una expresión racional es un cociente de polinomios. El denominador nunca puede ser cero. Se factoriza para identificar factores comunes y restricciones.</p><div class="formula">(ab)/(ac) = b/c, si a ≠ 0 y c ≠ 0<br>a/b + c/d = (ad + bc)/bd</div>
+<h4>Ejemplo: simplificar (x² − 9)/(x² + 3x)</h4><ol class="steps"><li>Factorizamos: x² − 9 = (x − 3)(x + 3).</li><li>Factorizamos el denominador: x² + 3x = x(x + 3).</li><li>Cancelamos el factor común (x + 3), sin olvidar las restricciones originales.</li><li class="answer">Resultado: (x − 3)/x; restricciones: x ≠ 0 y x ≠ −3.</li></ol>
+
+<div class="video-container" id="video-container-2">
+    <div class="video-container">
+    <iframe
+        src="https://drive.google.com/file/d/1E0SB11Eh4Fip3ZPJhVLqxVtf9JpT5EFP/preview"
+        title="Video educativo"
+        allow="autoplay; fullscreen"
+        allowfullscreen>
+    </iframe>
+</div>
+</div>
+    <style>
+.video-container {
+    width: 100%;
+    max-width: 800px;
+    aspect-ratio: 16 / 9;
+    margin: 25px auto;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-container iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0;
+}
+</style>
+</div>
+</article>
+<article class="topic-card" id="tema3"><div class="topic-top"><span class="topic-number">03</span><div><h3>Ecuaciones</h3><p>Resolución algebraica y comprobación</p></div></div><div class="topic-body">
+<h4>Conceptos clave</h4><p>Resolver una ecuación significa encontrar los valores de la variable que hacen verdadera la igualdad. Se puede sumar, restar, multiplicar o dividir ambos lados por la misma cantidad (no cero al dividir).</p><div class="formula">Si ax + b = c y a ≠ 0, entonces x = (c − b)/a</div>
+<h4>Ejemplo: 3(2x − 1) = 15</h4><ol class="steps"><li>Distribuimos: 6x − 3 = 15.</li><li>Sumamos 3 a ambos lados: 6x = 18.</li><li>Dividimos entre 6: x = 3.</li><li>Comprobamos: 3(2·3 − 1) = 3(5) = 15.</li><li class="answer">Solución: x = 3.</li></ol>
+<div class="video-container" id="video-container-3">
+    <div class="video-container">
+    <iframe
+        src="https://drive.google.com/file/d/1IH6XC7R_q_-FUwIzS8U_hnoNxJSkgJ-G/preview"
+        title="Video educativo"
+        allow="autoplay; fullscreen"
+        allowfullscreen>
+    </iframe>
+</div>
+    <style>
+.video-container {
+    width: 100%;
+    max-width: 800px;
+    aspect-ratio: 16 / 9;
+    margin: 25px auto;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-container iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0;
+}
+</style>
+</div>
+</article>
+<article class="topic-card" id="tema4"><div class="topic-top"><span class="topic-number">04</span><div><h3>Modelado con ecuaciones</h3><p>Planteamiento y resolución de problemas</p></div></div><div class="topic-body">
+<h4>Cómo modelar un problema</h4><p>Leer el enunciado, definir la incógnita, traducir la relación a una ecuación, resolver y comprobar que la respuesta tenga sentido en el contexto.</p>
+<h4>Ejemplo: entradas para una actividad</h4><p>Una entrada de adulto cuesta Q30. Se venden 12 entradas y se recaudan Q300. ¿Cuántas entradas de adulto se vendieron si las demás eran infantiles de Q20?</p><ol class="steps"><li>Sea x el número de entradas de adulto; las infantiles son 12 − x.</li><li>Planteamos: 30x + 20(12 − x) = 300.</li><li>Distribuimos: 30x + 240 − 20x = 300.</li><li>Reducimos: 10x = 60; por tanto, x = 6.</li><li class="answer">Se vendieron 6 entradas de adulto y 6 infantiles.</li></ol>
+<div class="video-container" id="video-container-4">
+
+        <div class="video-container">
+    <iframe
+        src="https://drive.google.com/file/d/1-iWS40iwX_ZgxWZfkl4NlW3xxsGNt0-5/preview"
+        title="Video educativo"
+        allow="autoplay; fullscreen"
+        allowfullscreen>
+    </iframe>
+</div>
+    <style>
+.video-container {
+    width: 100%;
+    max-width: 800px;
+    aspect-ratio: 16 / 9;
+    margin: 25px auto;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-container iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0;
+}
+</style>
+</div>
+</article>
+<article class="topic-card" id="tema5"><div class="topic-top"><span class="topic-number">05</span><div><h3>Geometría de coordenadas</h3><p>Distancia, punto medio y plano cartesiano</p></div></div><div class="topic-body">
+<h4>Fórmulas principales</h4><div class="formula">Distancia: d = √[(x₂ − x₁)² + (y₂ − y₁)²]<br>Punto medio: M = ((x₁ + x₂)/2, (y₁ + y₂)/2)</div>
+<h4>Ejemplo: A(2, 1) y B(6, 4)</h4><ol class="steps"><li>Distancia: d = √[(6 − 2)² + (4 − 1)²].</li><li>d = √(16 + 9) = √25.</li><li class="answer">Distancia: 5 unidades.</li><li>Punto medio: M = ((2 + 6)/2, (1 + 4)/2).</li><li class="answer">M = (4, 2.5).</li></ol>
+<div class="video-container" id="video-container-5">
+       <div class="video-container">
+    <iframe
+        src="https://drive.google.com/file/d/1GTiR2II_xVAWjuOWsdtGdoUtEom-Vd2r/preview"
+        title="Video educativo"
+        allow="autoplay; fullscreen"
+        allowfullscreen>
+    </iframe>
+</div>
+    <style>
+.video-container {
+    width: 100%;
+    max-width: 800px;
+    aspect-ratio: 16 / 9;
+    margin: 25px auto;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-container iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0;
+}
+</style>
+</div>
+</article>
+<article class="topic-card" id="tema6"><div class="topic-top"><span class="topic-number">06</span><div><h3>Rectas</h3><p>Pendiente, ecuación, intersecciones, paralelas y perpendiculares</p></div></div><div class="topic-body">
+<h4>Fórmulas principales</h4><div class="formula">Pendiente: m = (y₂ − y₁)/(x₂ − x₁), si x₂ ≠ x₁<br>Forma pendiente-intersección: y = mx + b<br>Paralelas: misma pendiente. Perpendiculares: m₁m₂ = −1 (si ambas pendientes existen).</div>
+<h4>Ejemplo: recta por (1, 2) y (3, 6)</h4><ol class="steps"><li>Calculamos m = (6 − 2)/(3 − 1) = 4/2 = 2.</li><li>Usamos y = mx + b: 2 = 2(1) + b, entonces b = 0.</li><li class="answer">Ecuación: y = 2x.</li><li>Intersección con el eje y: (0, 0). La recta también pasa por el origen.</li></ol>
+<div class="video-container" id="video-container-6">
+      <div class="video-container">
+    <iframe
+        src="https://drive.google.com/file/d/1wvxAVoJSo3pX9U8G6M5rVa7qx6RAOciD/preview"
+        title="Video educativo"
+        allow="autoplay; fullscreen"
+        allowfullscreen>
+    </iframe>
+</div>
+    <style>
+.video-container {
+    width: 100%;
+    max-width: 800px;
+    aspect-ratio: 16 / 9;
+    margin: 25px auto;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-container iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0;
+}
+</style>
+</div>
+</article>
+<article class="topic-card" id="tema7"><div class="topic-top"><span class="topic-number">07</span><div><h3>Funciones</h3><p>Concepto, notación, evaluación, dominio y rango</p></div></div><div class="topic-body">
+<h4>Conceptos clave</h4><p>Una función asigna a cada entrada del dominio exactamente una salida. f(x) se lee “f de x”. El dominio reúne entradas permitidas y el rango, los valores de salida obtenidos.</p>
+<div class="formula">Si f(x) = 2x + 3, entonces f(a) = 2a + 3.</div>
+<h4>Ejemplo: evaluar f(4) si f(x) = 2x + 3</h4><ol class="steps"><li>Sustituimos x por 4: f(4) = 2(4) + 3.</li><li>Multiplicamos: 8 + 3 = 11.</li><li class="answer">f(4) = 11.</li></ol><p>Para esta función lineal, si el dominio es ℝ, el rango también es ℝ.</p>
+<div class="video-container" id="video-container-7">
+       <div class="video-container">
+    <iframe
+        src="https://drive.google.com/file/d/1K4Tjo73jOiEx96vJCZUD5wzmm7ID_PU0/preview"
+        title="Video educativo"
+        allow="autoplay; fullscreen"
+        allowfullscreen>
+    </iframe>
+</div>
+    <style>
+.video-container {
+    width: 100%;
+    max-width: 800px;
+    aspect-ratio: 16 / 9;
+    margin: 25px auto;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-container iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0;
+}
+</style>
+</div>
+</article>
+<article class="topic-card" id="tema8"><div class="topic-top"><span class="topic-number">08</span><div><h3>Análisis de funciones</h3><p>Lectura de gráficas, intervalos, máximos y mínimos</p></div></div><div class="topic-body">
+<h4>¿Qué debemos observar?</h4><p>Al analizar una gráfica, identificamos dominio, rango, intersecciones con los ejes, intervalos donde crece o decrece, y máximos o mínimos. Las respuestas dependen de la función y del intervalo considerado.</p>
+<h4>Ejemplo: f(x) = −(x − 2)² + 4</h4><ol class="steps"><li>Está en forma de vértice: f(x) = a(x − h)² + k.</li><li>El vértice es (h, k) = (2, 4); como a = −1, abre hacia abajo.</li><li>El máximo valor es 4, cuando x = 2.</li><li>Para hallar las raíces: 0 = −(x − 2)² + 4; entonces (x − 2)² = 4.</li><li class="answer">Intersecciones con x: x = 0 y x = 4. Rango: y ≤ 4.</li></ol>
+<div class="video-container" id="video-container-8">
+    <div class="video-container">
+    <iframe
+        src="https://drive.google.com/file/d/1qztBslimHnOww8mTYBax-i9q8T6uAccj/preview"
+        title="Video educativo"
+        allow="autoplay; fullscreen"
+        allowfullscreen>
+    </iframe>
+</div>
+    <style>
+.video-container {
+    width: 100%;
+    max-width: 800px;
+    aspect-ratio: 16 / 9;
+    margin: 25px auto;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-container iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0;
+}
+</style>
+</div>
+</article>
+<article class="topic-card" id="tema9"><div class="topic-top"><span class="topic-number">09</span><div><h3>Funciones cuadráticas</h3><p>Gráfica, vértice, eje de simetría e intersecciones</p></div></div><div class="topic-body">
+<h4>Fórmulas principales</h4><div class="formula">f(x) = ax² + bx + c, a ≠ 0<br>Eje de simetría: x = −b/(2a)<br>Vértice: (−b/(2a), f(−b/(2a)))<br>Discriminante: Δ = b² − 4ac</div>
+<h4>Ejemplo: f(x) = x² − 4x + 3</h4><ol class="steps"><li>a = 1, b = −4, c = 3. Eje: x = −(−4)/(2·1) = 2.</li><li>Vértice: f(2) = 4 − 8 + 3 = −1, así que es (2, −1).</li><li>Como a > 0, la parábola abre hacia arriba y tiene mínimo −1.</li><li>Factorizamos: x² − 4x + 3 = (x − 1)(x − 3).</li><li class="answer">Cortes con x: (1, 0) y (3, 0). Corte con y: (0, 3).</li></ol>
+<div class="video-container" id="video-container-9">
+<!-- VIDEO DEL TEMA 9: pega aquí el código iframe de YouTube. Ejemplo:
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ID_DEL_VIDEO" title="Video del tema 9" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+-->
+</div>
+</div></article>
+<article class="topic-card" id="tema10"><div class="topic-top"><span class="topic-number">10</span><div><h3>Funciones polinomiales y ceros reales</h3><p>Comportamiento, gráficas, división y determinación de ceros</p></div></div><div class="topic-body">
+<h4>Conceptos clave</h4><p>Una función polinomial es una suma de términos con potencias enteras no negativas de x. Sus ceros reales son los valores de x para los que f(x) = 0; gráficamente, corresponden a cruces o contactos con el eje x.</p>
+<div class="formula">Teorema del factor: si f(r) = 0, entonces (x − r) es factor de f(x).</div>
+<h4>Ejemplo: encontrar los ceros de f(x) = x³ − 4x</h4><ol class="steps"><li>Igualamos a cero: x³ − 4x = 0.</li><li>Factor común: x(x² − 4) = 0.</li><li>Diferencia de cuadrados: x(x − 2)(x + 2) = 0.</li><li>Igualamos cada factor a cero.</li><li class="answer">Ceros reales: x = −2, x = 0 y x = 2.</li></ol>
+<div class="video-container" id="video-container-10">
+<!-- VIDEO DEL TEMA 10: pega aquí el código iframe de YouTube. Ejemplo:
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ID_DEL_VIDEO" title="Video del tema 10" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+-->
+</div>
+</div></article>
+</div></section>
+<!-- PRÁCTICA: contiene dos calculadoras y el cuestionario interactivo. -->
+<section class="section" id="practica"><div class="section-head"><div class="kicker">Recursos interactivos</div><h2>Practica y comprueba tus resultados</h2><p>Prueba las herramientas y el cuestionario. Usa los resultados como apoyo y escribe los pasos en tu cuaderno para aprender de verdad.</p></div>
+<div class="practice-grid">
+<div class="panel"><h3>🧮 Calculadora de punto medio y distancia</h3><p>Ingresa las coordenadas de dos puntos A y B.</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px"><div><label for="x1">x₁</label><input type="number" id="x1" value="2"></div><div><label for="y1">y₁</label><input type="number" id="y1" value="1"></div><div><label for="x2">x₂</label><input type="number" id="x2" value="6"></div><div><label for="y2">y₂</label><input type="number" id="y2" value="4"></div></div><button class="btn btn-primary" style="margin-top:14px" onclick="calculatePoints()">Calcular</button><div class="result" id="pointResult" aria-live="polite">Distancia: 5 · Punto medio: (4, 2.5)</div></div>
+<div class="panel"><h3>📈 Calculadora de función lineal</h3><p>Evalúa f(x) = mx + b con los valores que elijas.</p><label for="slope">Pendiente (m)</label><input type="number" id="slope" value="2"><label for="intercept">Intersección (b)</label><input type="number" id="intercept" value="3"><label for="inputx">Valor de x</label><input type="number" id="inputx" value="4"><button class="btn btn-primary" style="margin-top:14px" onclick="calculateFunction()">Evaluar función</button><div class="result" id="functionResult" aria-live="polite">f(4) = 11</div></div>
+</div>
+<div class="panel" style="margin-top:18px"><h3>🎯 Mini cuestionario</h3><p>Selecciona una respuesta en cada pregunta y revisa tu resultado.</p>
+<form id="quiz">
+<div class="quiz-question"><p>1. ¿Cuánto vale x² · x³?</p><label><input type="radio" name="q1" value="a"> x⁶</label><label><input type="radio" name="q1" value="b"> x⁵</label><label><input type="radio" name="q1" value="c"> 2x⁵</label></div>
+<div class="quiz-question"><p>2. ¿Qué valor está excluido del dominio de 1/(x − 4)?</p><label><input type="radio" name="q2" value="a"> x = 0</label><label><input type="radio" name="q2" value="b"> x = −4</label><label><input type="radio" name="q2" value="c"> x = 4</label></div>
+<div class="quiz-question"><p>3. ¿Cuál es la pendiente de la recta que pasa por (1, 2) y (3, 6)?</p><label><input type="radio" name="q3" value="a"> 2</label><label><input type="radio" name="q3" value="b"> 4</label><label><input type="radio" name="q3" value="c"> −2</label></div>
+<div class="quiz-question"><p>4. ¿Cuál es el vértice de f(x) = (x − 3)² + 2?</p><label><input type="radio" name="q4" value="a"> (−3, 2)</label><label><input type="radio" name="q4" value="b"> (3, 2)</label><label><input type="radio" name="q4" value="c"> (2, 3)</label></div>
+<div class="quiz-question"><p>5. ¿Cuáles son los ceros de x² − 9?</p><label><input type="radio" name="q5" value="a"> 0 y 9</label><label><input type="radio" name="q5" value="b"> 3 solamente</label><label><input type="radio" name="q5" value="c"> −3 y 3</label></div>
+<button class="btn btn-primary" type="submit">Comprobar respuestas</button> <button class="btn" style="background:#edf2fa;color:#203653" type="reset">Reiniciar</button></form><div id="quizResult" class="result" aria-live="polite" style="display:none"></div></div>
+</section>
+
+<!-- LISTA DE REVISIÓN: casillas que ayudan a comprobar el trabajo antes de entregarlo. -->
+</main>
+<!-- PIE DE PÁGINA: institución, curso, semestre y enlace para volver al inicio. -->
+<footer class="footer"><div class="footer-inner"><div><b>Aprendizaje Diverso</b><p>Proyecto final de Precálculo · Segundo semestre 2026</p><p>Universidad Mariano Gálvez de Guatemala · Facultad de Ingeniería en Sistemas y Ciencias de la Información · Sede Jalapa</p><p>Segundo semestre 2026</p></div><a class="backtop" href="#inicio">↑ Volver al inicio</a></div></footer>
+<script>
+/* ============================================================
+   JAVASCRIPT = COMPORTAMIENTO
+   Estas instrucciones hacen que respondan los botones, calculadoras,
+   cuestionario y enlaces de videos. Las funciones se ejecutan cuando
+   el usuario realiza una acción.
+   ============================================================ */
+
+// Guarda en variables los elementos del botón de menú y la lista de enlaces.
+const menuBtn=document.getElementById('menuBtn'), navlinks=document.getElementById('navlinks');
+// Al tocar el botón del menú, agrega o quita la clase CSS "open".
+// En móvil, esa clase hace visible u oculta la navegación.
+menuBtn.addEventListener('click',()=>navlinks.classList.toggle('open'));
+// Al elegir un enlace del menú, lo cierra para no dejarlo desplegado en móvil.
+navlinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navlinks.classList.remove('open')));
+
+/* FUNCIÓN calculatePoints()
+   1) Lee las cuatro coordenadas ingresadas por el usuario.
+   2) Comprueba que ninguna esté vacía.
+   3) Calcula la distancia con la fórmula de distancia entre dos puntos.
+   4) Calcula el punto medio promediando las coordenadas x e y.
+   5) Muestra ambos resultados dentro del elemento pointResult.
+*/
+function calculatePoints(){const vals=['x1','y1','x2','y2'].map(id=>Number(document.getElementById(id).value));if(vals.some((v,i)=>document.getElementById(['x1','y1','x2','y2'][i]).value==='')){document.getElementById('pointResult').textContent='Completa las cuatro coordenadas.';return}// Se separan las coordenadas. Math.hypot calcula √((x₂−x₁)²+(y₂−y₁)²).
+// El punto medio se obtiene con ((x₁+x₂)/2, (y₁+y₂)/2).
+const [x1,y1,x2,y2]=vals;const d=Math.hypot(x2-x1,y2-y1),mx=(x1+x2)/2,my=(y1+y2)/2;document.getElementById('pointResult').textContent=`Distancia: ${Number(d.toFixed(4))} unidades · Punto medio: (${Number(mx.toFixed(4))}, ${Number(my.toFixed(4))})`}
+/* FUNCIÓN calculateFunction()
+   Lee la pendiente m, la intersección b y el valor x.
+   Evalúa la función lineal f(x) = mx + b y muestra la operación
+   junto con el resultado en el elemento functionResult.
+*/
+function calculateFunction(){
+// Sustituye x, m y b en f(x)=mx+b. toFixed(4) limita los decimales a cuatro.
+const m=Number(document.getElementById('slope').value),b=Number(document.getElementById('intercept').value),x=Number(document.getElementById('inputx').value);document.getElementById('functionResult').textContent=`f(${x}) = ${m}(${x}) + ${b} = ${Number((m*x+b).toFixed(4))}`}
+/* CUESTIONARIO — evento submit:
+   Se activa al pulsar "Comprobar respuestas". preventDefault evita
+   que el formulario recargue la página. key contiene las respuestas
+   correctas; el ciclo revisa cada pregunta, suma los aciertos y muestra
+   una retroalimentación en quizResult.
+*/
+document.getElementById('quiz').addEventListener('submit',function(e){e.preventDefault();const key={q1:'b',q2:'c',q3:'a',q4:'b',q5:'c'};let score=0;for(const q in key){const chosen=this.querySelector(`input[name="${q}"]:checked`);if(chosen&&chosen.value===key[q])score++}const r=document.getElementById('quizResult');r.style.display='block';r.textContent=`Obtuviste ${score} de 5 respuestas correctas. ${score===5?'¡Excelente!':score>=3?'¡Vas bien! Repasa las respuestas que te faltaron.':'Sigue practicando y vuelve a intentarlo.'}`});
+/* REINICIAR CUESTIONARIO: al pulsar el botón de reinicio, oculta y limpia
+   el mensaje del resultado. El navegador restablece las opciones del formulario. */
+document.getElementById('quiz').addEventListener('reset',()=>{const r=document.getElementById('quizResult');r.style.display='none';r.textContent=''});
+
+
+</script>
+</body></html>
+
